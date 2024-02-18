@@ -67,7 +67,12 @@ void copy_matrix(int** from, int** dest, int row, int col){
     }
 }
 
+void clear(){
+   printf("\033[H\033[J");
+}
+
 int main(void){
+    clear();
     const int size = 5;
     int** matrix = matrix_2d_create_empty(size, size);
     int** temp_matrix = matrix_2d_create_empty(size, size);
@@ -78,7 +83,6 @@ int main(void){
     matrix[2][3] = 1;
 
     copy_matrix(matrix, temp_matrix, size, size);
-    matrix_2d_print(matrix, size, size);
     
     int live_cell = 1;
     int dead_cell = 0;
@@ -103,7 +107,7 @@ int main(void){
 
         copy_matrix(temp_matrix, matrix, size, size);
         matrix_2d_print(matrix, size, size);
-        printf("\033[H\033[J");
+        clear();
         sleep(1);
     }
     // die: live cell < 2 live neigh or > 3 live neigh
