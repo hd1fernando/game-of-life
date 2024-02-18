@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 int** matrix_2d_create_empty(int row_size, int col_size){
     int** matrix = (int**)calloc(row_size, sizeof(int*));
@@ -57,10 +58,36 @@ int count_neighbors(int** matrix, int row, int col, int value){
     return result;
 }
 
-
 int main(void){
-    const int size = 30;
+    const int size = 10;
     int** matrix = matrix_2d_create_empty(size, size);
+
+    matrix[1][1] = 1;
+    matrix[1][2] = 1;
+    matrix[1][3] = 1;
+
+    matrix_2d_print(matrix, size, size);
+    
+    int live_cell = 1;
+    int dead_cell = 0;
+    // execute rules
+    for(int i = 1; i < size-1; ++i){
+        for(int j = 1; j < size-1; ++j){
+            int nums_of_live_neighbors = count_neighbors(matrix, i, j, live_cell);
+            bool live_cell_dies = matrix[i][j] == live_cell && (nums_of_live_neighbors < 2 || nums_of_live_neighbors > 3);
+            if(live_cell_dies){
+                matrix[i][j] = 0;
+                continue;
+            }
+            
+            bool dies_cell_can_born = matrix[i][j] == dead_cell && nums_of_live_neighbors == 3;
+            if(dies_cell_can_born){
+                matrix[i][j]=1;
+                continue;
+            }
+        }
+    }
+
     matrix_2d_print(matrix, size, size);
     // die: live cell < 2 live neigh or > 3 live neigh
     // live: live cell == 2 or 3 live neigh
