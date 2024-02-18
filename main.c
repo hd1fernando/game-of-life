@@ -78,15 +78,22 @@ int main(void){
     int** temp_matrix = matrix_2d_create_empty(size, size);
 
     // blinker seed
-    matrix[2][1] = 1;
-    matrix[2][2] = 1;
-    matrix[2][3] = 1;
+//    matrix[2][1] = 1;
+  //  matrix[2][2] = 1;
+   // matrix[2][3] = 1;
+
+    // pentominoi
+ //   matrix[2][3] = 1;
+ //   matrix[2][4] = 1;
+ //   matrix[3][2] = 1;
+ //   matrix[3][3] = 1;
+  //  matrix[4][3] = 1;
 
     // glider
-    matrix[2][3] = 1;
-    matrix[2][4] = 1;
-    matrix[3][2] = 1;
+    matrix[2][2] = 1;
     matrix[3][3] = 1;
+    matrix[3][4] = 1;
+    matrix[4][2] = 1;
     matrix[4][3] = 1;
 
     copy_matrix(matrix, temp_matrix, size, size);
