@@ -73,7 +73,7 @@ void clear(){
 
 int main(void){
     clear();
-    const int size = 5;
+    const int size = 30;
     int** matrix = matrix_2d_create_empty(size, size);
     int** temp_matrix = matrix_2d_create_empty(size, size);
 
@@ -81,6 +81,13 @@ int main(void){
     matrix[2][1] = 1;
     matrix[2][2] = 1;
     matrix[2][3] = 1;
+
+    // glider
+    matrix[2][3] = 1;
+    matrix[2][4] = 1;
+    matrix[3][2] = 1;
+    matrix[3][3] = 1;
+    matrix[4][3] = 1;
 
     copy_matrix(matrix, temp_matrix, size, size);
     
