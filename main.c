@@ -31,7 +31,10 @@ void matrix_2d_free(int** matrix, int row_size){
 void matrix_2d_print(int** matrix, int row_size, int col_size){
     for(int i = 0; i < row_size; ++i){
         for(int j = 0; j < col_size; ++j){
-            printf("%d ",matrix[i][j]);
+            if(matrix[i][j] == 1)
+                printf("* ");
+            else
+                printf(". ");
         }
         printf("\n");
     }
@@ -67,6 +70,14 @@ void copy_matrix(int** from, int** dest, int row, int col){
     }
 }
 
+void matrix_2d_populate(int** matrix, int row_size, int col_size){
+    for(int i = 0; i < row_size;++i){
+        for(int j = 0; j < col_size; ++j){
+            matrix[i][j] = rand() % 2;
+        }
+    }
+}
+
 void clear(){
    printf("\033[H\033[J");
 }
@@ -78,9 +89,9 @@ int main(void){
     int** temp_matrix = matrix_2d_create_empty(size, size);
 
     // blinker seed
-//    matrix[2][1] = 1;
-  //  matrix[2][2] = 1;
-   // matrix[2][3] = 1;
+    matrix[20][21] = 1;
+    matrix[20][22] = 1;
+    matrix[20][23] = 1;
 
     // pentominoi
  //   matrix[2][3] = 1;
@@ -95,6 +106,8 @@ int main(void){
     matrix[3][4] = 1;
     matrix[4][2] = 1;
     matrix[4][3] = 1;
+
+    matrix_2d_populate(matrix, size, size);
 
     copy_matrix(matrix, temp_matrix, size, size);
     
