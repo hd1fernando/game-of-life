@@ -105,14 +105,14 @@ int main(void){
         for(int i = 1; i < size-1; ++i){
             for(int j = 1; j < size-1; ++j){
                 int nums_of_live_neighbors = count_neighbors(matrix, i, j, live_cell);
-                bool live_cell_dies = matrix[i][j] == live_cell && (nums_of_live_neighbors < 2 || nums_of_live_neighbors > 3);
-                if(live_cell_dies){
+                bool lived_cell_should_die = matrix[i][j] == live_cell && (nums_of_live_neighbors < 2 || nums_of_live_neighbors > 3);
+                if(lived_cell_should_die){
                     temp_matrix[i][j] = 0;
                     continue;
                 }
                 
-                bool dies_cell_can_born = matrix[i][j] == dead_cell && nums_of_live_neighbors == 3;
-                if(dies_cell_can_born){
+                bool died_cell_can_born = matrix[i][j] == dead_cell && nums_of_live_neighbors == 3;
+                if(died_cell_can_born){
                     temp_matrix[i][j] = 1;
                     continue;
                 }
@@ -124,9 +124,6 @@ int main(void){
         clear();
         sleep(1);
     }
-    // die: live cell < 2 live neigh or > 3 live neigh
-    // live: live cell == 2 or 3 live neigh
-    // born: cell == 3 live negh
     
     matrix_2d_free(matrix, size);
     matrix_2d_free(temp_matrix, size);
