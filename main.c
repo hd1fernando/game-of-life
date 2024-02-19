@@ -43,21 +43,15 @@ void matrix_2d_print(int** matrix, int row_size, int col_size){
 
 int count_neighbors(int** matrix, int row, int col, int value){
     int result = 0;
-    int local_row = row - 1;
-    for(int i = col - 1; i <= col + 1; ++i){
-        if(matrix[local_row][i] == value)
-            result++;
+
+    for(int local_row = row-1; local_row <= row+1; local_row++){
+        for(int i = col -1; i <= col + 1; ++i){
+            if(matrix[local_row][i] == value)
+                result++;
+        }
     }
-    local_row = row + 1;
-    for(int i = col -1; i <= col + 1; ++i){
-        if(matrix[local_row][i] == value)
-            result++;
-    }
-    local_row = row;
-    if(matrix[local_row][col-1]==value)
-        result++;
-    if(matrix[local_row][col+1]==value)
-        result++;
+
+    result -= matrix[row][col];
 
     return result;
 }
@@ -84,7 +78,7 @@ void clear(){
 
 int main(void){
     clear();
-    const int size = 30;
+    const int size = 50;
     int** matrix = matrix_2d_create_empty(size, size);
     int** temp_matrix = matrix_2d_create_empty(size, size);
 
@@ -94,7 +88,7 @@ int main(void){
     matrix[20][23] = 1;
 
     // pentominoi
- //   matrix[2][3] = 1;
+//   matrix[2][3] = 1;
  //   matrix[2][4] = 1;
  //   matrix[3][2] = 1;
  //   matrix[3][3] = 1;
@@ -107,7 +101,7 @@ int main(void){
     matrix[4][2] = 1;
     matrix[4][3] = 1;
 
-    matrix_2d_populate(matrix, size, size);
+//    matrix_2d_populate(matrix, size, size);
 
     copy_matrix(matrix, temp_matrix, size, size);
     
