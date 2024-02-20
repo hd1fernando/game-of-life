@@ -34,20 +34,22 @@ void matrix_2d_print(int** matrix, int row_size, int col_size){
             if(matrix[i][j] == 1)
                 printf("* ");
             else
-                printf(". ");
+               printf(". ");
+           // printf("(%d,%d) ", i, j);
         }
         printf("\n");
     }
     printf("\n");
 }
 
-int count_neighbors(int** matrix, int row, int col, int value){
+int count_neighbors(int** matrix, int row_size, int col_size,int row, int col, int value){
     int result = 0;
-
-    for(int local_row = row-1; local_row <= row+1; local_row++){
-        for(int i = col -1; i <= col + 1; ++i){
-            if(matrix[local_row][i] == value)
-                result++;
+    
+    for(int i = -1; i < 2; ++i){
+        for(int j =  -1; j < 2; ++j){
+            int local_row = (row + i + row_size) % row_size;
+            int local_col = (col + j + col_size) % col_size;
+            result += matrix[local_row][local_col];            
         }
     }
 
@@ -83,9 +85,9 @@ int main(void){
     int** temp_matrix = matrix_2d_create_empty(size, size);
 
     // blinker seed
-    matrix[20][21] = 1;
-    matrix[20][22] = 1;
-    matrix[20][23] = 1;
+ //   matrix[20][21] = 1;
+  //  matrix[20][22] = 1;
+   // matrix[20][23] = 1;
 
     // pentominoi
 //   matrix[2][3] = 1;
@@ -101,7 +103,7 @@ int main(void){
     matrix[4][2] = 1;
     matrix[4][3] = 1;
 
-//    matrix_2d_populate(matrix, size, size);
+    matrix_2d_populate(matrix, size, size);
 
     copy_matrix(matrix, temp_matrix, size, size);
     
@@ -109,9 +111,9 @@ int main(void){
     int dead_cell = 0;
     while(true){
         // execute rules
-        for(int i = 1; i < size-1; ++i){
-            for(int j = 1; j < size-1; ++j){
-                int nums_of_live_neighbors = count_neighbors(matrix, i, j, live_cell);
+        for(int i = 0; i < size; ++i){
+            for(int j = 0; j < size; ++j){
+                int nums_of_live_neighbors = count_neighbors(matrix, size, size, i, j, live_cell);
                 bool lived_cell_should_die = matrix[i][j] == live_cell && (nums_of_live_neighbors < 2 || nums_of_live_neighbors > 3);
                 if(lived_cell_should_die){
                     temp_matrix[i][j] = 0;
